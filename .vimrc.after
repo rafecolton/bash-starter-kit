@@ -1,0 +1,39 @@
+map ,t :w<cr>
+map ,- :nohl<cr>
+
+" maximize horizontal splits vertically from now on
+nmap <leader>vm :set noequalalways winheight=9999 helpheight=9999<cr>:let netrw_winsize = 9999<cr>
+" return normal behavior of horizontal splits being of equal height
+nmap <leader>vn :set equalalways winheight=1 helpheight=20<cr>:unlet netrw_winsize<cr><C-W>=
+
+" UnMap the arrow keys to be based on physical lines as usual, not display lines 
+unmap <Down>
+unmap <Up>
+
+au BufNew,BufRead Cheffile setf ruby
+
+" 20 previous commands in history is not enough
+set history=10000
+
+" vim-turbux configuration, get it by cloning 2 following repos into ~/.janus folder
+" https://github.com/jgdavey/tslime.vim
+" https://github.com/olek/vim-turbux
+let g:turbux_rspec  = 'spec'        " default is 'rspec'
+nmap <leader><C-t> <Plug>SetTmuxVars
+
+" turns on/off automatic scrolling for vertical cursor movements,
+" attempting to keep current line centered
+nnoremap <Leader>zz :let &scrolloff=999-&scrolloff<CR>
+
+" tab-related stuff
+au BufNew,BufRead *.go,Makefile,*.mk set noexpandtab ts=4
+
+" sbt files are scala, but shouldn't be compiled
+au BufNew,BufRead *.sbt set syntax=scala
+
+" all Go files should be formatted before writing
+au BufNew,BufRead *.go map ,t :Fmt<cr>:w<cr>
+
+if filereadable(expand("~/.vimrc.after.local"))
+  source ~/.vimrc.after.local
+endif

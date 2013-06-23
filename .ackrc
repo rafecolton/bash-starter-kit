@@ -1,0 +1,7 @@
+--all-types
+--ignore-dir=log
+--ignore-dir=coverage
+--ignore-dir=.yardoc
+--color
+--pager=less -FSRX
+--sort-files

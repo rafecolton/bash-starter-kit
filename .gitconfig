@@ -1,0 +1,48 @@
+[core]
+	excludesfile = ~/.gitignore_global
+[autosetup]
+  rebase = true
+[branch]
+  autosetuprebase = remote
+  autosetupmerge = true
+  mergeoptions = --no-commit --no-ff
+[color]
+  branch = auto
+  diff = auto
+  interactive = auto
+  status = auto
+  ui = true
+[credential]
+  helper = osxkeychain
+[push]
+  default = current
+[alias]
+  addremove = !git add -A && git ls-files --deleted -z | xargs -0 git rm
+  br = branch
+  bra = branch -a
+  ci = commit
+  co = checkout
+  cp = cherry-pick
+  dc = diff --cached
+  dci = duet-commit
+  di = diff
+  g = log --pretty=format:\"%h %an - %s\" --graph
+  gg = log --pretty=format:\"%H %an - %s\" --graph
+  lc = log ORIG_HEAD.. --stat --no-merges
+  lg = log --oneline
+  ll = log --pretty=format:'%Cred%h %Cblue%an %Cgreen%s / %Cblue%ar%Creset' --abbrev-commit -n15
+  pp = !git pull --rebase && git push
+  pr = pull --rebase
+  st = status
+  s = status --short
+  w = whatchanged
+  pull-ff = pull --ff-only
+  edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; gvim `f`"
+  add-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
+  down = !sh -c 'CURRENT=$(git symbolic-ref HEAD | sed -e s@.*/@@) \
+    && (git pull --ff-only || (git fetch origin && git rebase --preserve-merges origin/$CURRENT))'
+  publish = "!f() { if [ $# -ne 1 ]; then echo 'usage: git publish <local-branch-name>' >&2; exit 1; fi; git push --set-upstream origin $1:$1; }; f"
+  unpublish = "!f() { if [ $# -ne 1 ]; then echo 'usage: git unpublish <remote-branch-name>' >&2; exit 1; fi; git push origin :$1; }; f"
+[user]
+	email = r.colton@modcloth.com
+	name = Rafe Colton

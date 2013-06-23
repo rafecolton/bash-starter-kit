@@ -1,0 +1,61 @@
+activate ()
+{
+  if [[ -n "$1" ]]; then
+    cd ~/workspace/$1
+    return 0
+  fi
+  return 1
+}
+
+__activate ()
+{
+  pushd ~/workspace >/dev/null
+
+  local cur
+  COMPREPLY=()
+  cur="${COMP_WORDS[COMP_CWORD]}"
+
+  if [[ -n "$cur" ]]; then
+    COMPREPLY=( $(compgen -W "$(ls -d * | egrep "^$cur")") )
+  else
+    COMPREPLY=( $(compgen -W "$(ls -d *)") )
+  fi
+
+  popd >/dev/null
+}
+
+complete -F __activate activate
+complete -F __activate a
+
+cookbook_activate ()
+{
+  if [[ -n "$1" ]]; then
+    cd ~/workspace/${WORKSPACE_COOKBOOKS:-'cookbooks'}/$1
+    return 0
+  fi
+  return 1
+}
+
+__cookbook_activate ()
+{
+  pushd ~/workspace/cookbooks >/dev/null
+
+  local cur
+  COMPREPLY=()
+  cur="${COMP_WORDS[COMP_CWORD]}"
+
+  if [[ -n "$cur" ]]; then
+    COMPREPLY=( $(compgen -W "$(ls -d * | egrep "^$cur")") )
+  else
+    COMPREPLY=( $(compgen -W "$(ls -d *)") )
+  fi
+
+  popd >/dev/null
+}
+
+# using 'cookbook_activate' and 'ca' instead of 'activate_cookbook' and 'ac'
+# because 'ac' is already an executable, so we don't want to overwrite it
+complete -F __cookbook_activate cookbook_activate
+complete -F __cookbook_activate ca
+
+# vim:filetype=sh

@@ -1,0 +1,10 @@
+pairs:
+  rc: Rafe Colton
+email:
+  prefix: pair
+  domain: gmail.com
+email_addresses:
+  rc: rafael.colton@gmail.com
+email_template: '<%= "#{author.split.first[0,1].downcase}.#{author.split.last.downcase}@modcloth.com" %>'
+
+# vim:filetype=yaml
