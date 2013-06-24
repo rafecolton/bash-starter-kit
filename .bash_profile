@@ -43,12 +43,19 @@ alias t='time'
 alias rc='bundle exec rails console'
 alias rs='bundle exec rails server'
 alias rdb='bundle exec rails dbconsole'
-alias l='ls -lFG'
-alias ll='ls -laFG'
-alias ls='ls -G'
 alias sc='script/console'
 alias ss='script/server'
 alias sdb='script/dbconsole'
+
+if is_darwin ; then
+  alias l='ls -lFG'
+  alias ll='ls -laFG'
+  alias ls='ls -G'
+else
+  alias l='ls -lF --color=auto'
+  alias ll='ls -laF --color=auto'
+  alias ls='ls --color=auto'
+fi
 
 export HISTCONTROL=ignorespace:erasedups
 export HISTIGNORE="l:ll:pwd:vmf:dvmf:isp"
