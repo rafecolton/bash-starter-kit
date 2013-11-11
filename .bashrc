@@ -52,9 +52,6 @@ export RAILS_ENV=development
 export TERM=xterm-256color
 export PAGER='less -FSRX'
 
-export SDC_CLI_URL="https://us-sw-1.api.joyentcloud.com"
-export SDC_CLI_ACCOUNT=modclothdev
-
 if [ -d /usr/local/Cellar/go ] ; then
   export GOROOT="/usr/local/Cellar/go/`ls /usr/local/Cellar/go | tail -1`"
 fi

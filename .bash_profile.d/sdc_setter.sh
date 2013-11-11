@@ -3,8 +3,9 @@
 function sdc() {
   ID=$1
   KEY="$(ls -1t ~/.ssh | grep "$ID" | grep -v pub | head -n 1)"
-  export SDC_CLI_KEY="$ID"
-  export SDC_CLI_KEY_ID="$ID"
-  export SDC_CLI_IDENTITY="$HOME/$KEY"
+  export SDC_URL='https://us-sw-1.api.joyentcloud.com'
+  export SDC_KEY_ID="$(ssh-keygen -l -f ~/.ssh/"$KEY" | awk '{ print $2 }')"
+  export JOYENT_KEYNAME="$(whoami)"
+  export JOYENT_KEYFILE="$HOME/.ssh/$KEY"
   echo "$(env | grep SDC)"
 }

@@ -1,1 +1,3 @@
 colo elflord
+set cursorline
+map <Leader>jj ggVG !json<CR>

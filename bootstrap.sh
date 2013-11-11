@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
-set -e
+GOLD=$(echo -e "\033[33;1m")
+RESET=$(echo -e "\033[0m")
+GREEN=$(echo -e "\033[32;1m")
+RED=$(echo -e "\033[31;1m")
 
 function is_darwin() {
   uname | grep -i 'darwin' > /dev/null && [ $? -eq 0 ]
@@ -16,11 +19,13 @@ function is_sunos() {
 
 _install_tmux() {
   if is_darwin ; then
-    if [ ! which brew ] ; then
+    if ! which brew ; then
       ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
     fi
-    brew install tmux
-    brew install reattach-to-user-namespace
+    if ! which tmux ; then
+      brew install tmux
+      brew install reattach-to-user-namespace
+    fi
   elif is_linux ; then
     # un-tested
     sudo apt-get install tmux
@@ -42,7 +47,7 @@ _install_XVim(){
     else
       ln1='Successfully installed XVim. XVim adds vim-like key bindings to Xcode.'
       ln2='To remove XVim: rm -rf $HOME/Library/Application\ Support/Developer/Shared/Xcode/Plug-ins/XVim.xcplugin'
-      echo -e "\033[33m$ln1\n$ln2\033[0m"
+      echo -e "${GOLD}$ln1\n$ln2${RESET}"
     fi
   fi
 }
@@ -73,8 +78,8 @@ EOF
 eval "\$(rbenv init -)"
 EOF
   source ~/.bash_profile
-  rbenv install 1.9.3-p392
-  rbenv global 1.9.3-p392
+  rbenv install 2.0.0-rc2
+  rbenv global 2.0.0-rc2
 }
 
 _install_janus() {
@@ -99,6 +104,51 @@ _install_janus() {
   popd >/dev/null
 }
 
+_install_sdc_commands() {
+  if ! which npm ; then
+    is_linux && curl http://npmjs.org/install.sh | sudo sh
+    is_darwin && brew install npm
+  fi
+  source ~/.bash_profile
+  npm install -g jsontool
+  npm update -g jsontool
+  npm install -g smartdc
+  npm update -g smartdc
+}
+
+_install_gvm() {
+  bash < <(curl -s https://raw.github.com/moovweb/gvm/master/binscripts/gvm-installer) 2>/dev/null
+  ! grep -q 'gvm' "$HOME/.bash_profile" && \
+    echo '[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"' \
+    >> ~/.bash_profile
+  source ~/.bash_profile
+  gvm update
+  gvm install go1.1.1 2>/dev/null
+  ! grep -q 'gvm use go1.1.1' "$HOME/.bash_profile" && \
+    echo 'gvm use go1.1.1 >/dev/null' >> ~/.bash_profile
+  gvm use go1.1.1
+}
+
+_install_golint() {
+  go get github.com/golang/lint/golint
+  vim_str="\"set rtp+=\$GOPATH/src/github.com/golang/lint/misc/vim"
+  vim_str2="\"autocmd BufWritePost,FileWritePost *.go execute 'Lint' | cwindow"
+  ! grep "$vim_str" ~/.vimrc.after.local && echo "$vim_str" >> ~/.vimrc.after.local
+  ! grep "$vim_str2" ~/.vimrc.after.local && echo "$vim_str" >> ~/.vimrc.after.local
+}
+
+_install_docker_vim_syntax() {
+  for dir in ftdetect snippets syntax ; do 
+    mkdir -p "$HOME/.vim/$dir"
+  done
+
+  git clone https://github.com/ekalinin/Dockerfile.vim.git /tmp/Dockerfile.vim
+  pushd /tmp/Dockerfile.vim >/dev/null
+  make install
+  popd
+  rm -rf /tmp/Dockerfile.vim
+}
+
 script_path() {
   (cd "$(dirname $0)" && echo "$(pwd -P)/$(basename $0)")
 }
@@ -120,6 +170,9 @@ main() {
   _install_janus
   _install_tmux
   _install_XVim
+  _install_sdc_commands
+  _install_gvm
+  _install_golint
   source "$HOME/.bash_profile"
   delete_self_and_exit
 }

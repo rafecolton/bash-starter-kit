@@ -43,6 +43,7 @@
     && (git pull --ff-only || (git fetch origin && git rebase --preserve-merges origin/$CURRENT))'
   publish = "!f() { if [ $# -ne 1 ]; then echo 'usage: git publish <local-branch-name>' >&2; exit 1; fi; git push --set-upstream origin $1:$1; }; f"
   unpublish = "!f() { if [ $# -ne 1 ]; then echo 'usage: git unpublish <remote-branch-name>' >&2; exit 1; fi; git push origin :$1; }; f"
+  tidy = "!git remote prune origin 2>/dev/null; echo \"$(git branch -vv | grep origin | tr '[]*?+' ' ')\" | egrep -v \"$(git branch -r | awk '{print $1}')\" | awk '{print $1}' | xargs git branch -d"
 [user]
 	email = r.colton@modcloth.com
 	name = Rafe Colton
