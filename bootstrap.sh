@@ -17,6 +17,10 @@ function is_sunos() {
   uname | grep -i 'sunos' > /dev/null && [ $? -eq 0 ]
 }
 
+_install_autoenv() {
+  git clone git://github.com/kennethreitz/autoenv.git ~/.autoenv
+}
+
 _install_tmux() {
   if is_darwin ; then
     if ! which brew ; then
@@ -106,7 +110,7 @@ _install_janus() {
 
 _install_sdc_commands() {
   if ! which npm ; then
-    is_linux && curl http://npmjs.org/install.sh | sudo sh
+    is_linux && sudo apt-get install -y npm
     is_darwin && brew install npm
   fi
   source ~/.bash_profile
@@ -117,6 +121,13 @@ _install_sdc_commands() {
 }
 
 _install_gvm() {
+  if is_linux ; then
+    sudo apt-get install -y mercurial bison
+  elif is_darwin ; then
+    brew install mercurial
+    brew install bison
+  fi
+
   bash < <(curl -s https://raw.github.com/moovweb/gvm/master/binscripts/gvm-installer) 2>/dev/null
   ! grep -q 'gvm' "$HOME/.bash_profile" && \
     echo '[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"' \
@@ -165,6 +176,7 @@ janus_only() {
 }
 
 main() {
+  _install_autoenv
   _install_rbenv
   _install_gems
   _install_janus
