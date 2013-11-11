@@ -117,15 +117,20 @@ _install_janus() {
 }
 
 _install_sdc_commands() {
-  if ! which npm ; then
-    is_linux && sudo apt-get install -y npm
-    is_darwin && brew install npm
+  if is_linux ; then
+    sudo apt-get install -y npm
+    source ~/.bash_profile
+    sudo npm install -g jsontool
+    sudo npm update -g jsontool
+    sudo npm install -g smartdc
+    sudo npm update -g smartdc
+  elif is_darwin ; then
+    brew install npm
+    npm install -g jsontool
+    npm update -g jsontool
+    npm install -g smartdc
+    npm update -g smartdc
   fi
-  source ~/.bash_profile
-  npm install -g jsontool
-  npm update -g jsontool
-  npm install -g smartdc
-  npm update -g smartdc
 }
 
 _install_gvm() {
