@@ -105,7 +105,7 @@ if [ -d "$HOME/.bash_profile.d" ] ; then
   done
 fi
 
-[[-s "$HOME/.authenv/activate.sh" ]] && source ~/.autoenv/activate.sh
+[[ -s "$HOME/.authenv/activate.sh" ]] && source ~/.autoenv/activate.sh
 [[ -s "$HOME/.ssh/agent.out" ]] && source ~/.ssh/agent.out
 
 append_to_path '/usr/local/share/npm/bin'
