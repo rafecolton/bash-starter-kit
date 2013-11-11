@@ -38,8 +38,8 @@ set-option -g default-command "reattach-to-user-namespace -l bash"
 EOB
     fi
   elif is_linux ; then
-    sudo apt-get install tmux
-    sudo apt-get upgrade tmux
+    sudo apt-get install -y tmux
+    sudo apt-get upgrade -y tmux
   fi
 }
 
