@@ -31,9 +31,8 @@ _install_tmux() {
       brew install reattach-to-user-namespace
     fi
   elif is_linux ; then
-    # un-tested
+    # can't seem to get this to work. will deal with it later.
     sudo apt-get install tmux
-    # sudo apt-get reattach-to-user-namespace # <- is this necessary?
   fi
 }
 
@@ -58,7 +57,8 @@ _install_XVim(){
 
 _install_gems() {
   for gem in bundler rake git-duet ; do
-    gem install "$gem"
+    is_linux && sudo gem install "$gem"
+    is_darwin && gem install "$gem"
   done
 }
 
@@ -82,7 +82,8 @@ EOF
 eval "\$(rbenv init -)"
 EOF
   source ~/.bash_profile
-  rbenv install 2.0.0-p247
+  is_linux && sudo $(which rbenv) install 2.0.0-p247
+  is_darwin && rbenv install 2.0.0-p247
   rbenv global 2.0.0-p247
 }
 

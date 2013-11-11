@@ -3,7 +3,7 @@ function org() {
     export ORGNAME="$1"
   fi
 
-  echo "[$ORGNAME]"
+  [[ -e "$ORGNAME" ]] && echo "[$ORGNAME]"
 }
 
 alias orgname=org
@@ -12,7 +12,7 @@ function orgkey() {
   if [ -n "$1" ] ; then
     export ORGKEY="$1"
   fi
-  echo "[$ORGKEY]"
+  [[ -e "$ORGKEY" ]] && echo "[$ORGKEY]"
 }
 
 alias orgkeyname=orgkey
