@@ -29,10 +29,17 @@ _install_tmux() {
     if ! which tmux ; then
       brew install tmux
       brew install reattach-to-user-namespace
+      cat <<EOB >> "$HOME/.tmux.conf"
+
+# fixes problem with GUI apps started from tmux (MVIM) not having access to user's clipboard
+# see here https://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard
+# clone, compile ('make'), and copy binary to ~/bin in order for this line to work
+set-option -g default-command "reattach-to-user-namespace -l bash"
+EOB
     fi
   elif is_linux ; then
-    # can't seem to get this to work. will deal with it later.
     sudo apt-get install tmux
+    sudo apt-get upgrade tmux
   fi
 }
 
@@ -177,6 +184,7 @@ janus_only() {
 }
 
 main() {
+  is_linux && sudo apt-get update -yq
   _install_autoenv
   _install_rbenv
   _install_gems
