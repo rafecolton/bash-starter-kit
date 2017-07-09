@@ -24,7 +24,8 @@ _install_autoenv() {
 _install_tmux() {
   if is_darwin ; then
     if ! which brew ; then
-      ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
+      echo "please install homebrew first" >&2
+      exit 1
     fi
     if ! which tmux ; then
       brew install tmux
@@ -89,9 +90,9 @@ EOF
 eval "\$(rbenv init -)"
 EOF
   source ~/.bash_profile
-  is_linux && sudo $(which rbenv) install 2.0.0-p247
-  is_darwin && rbenv install 2.0.0-p247
-  rbenv global 2.0.0-p247
+  is_linux && sudo $(which rbenv) install 2.3.0
+  is_darwin && rbenv install 2.3.0
+  rbenv global 2.3.0
 }
 
 _install_janus() {
@@ -133,36 +134,8 @@ _install_sdc_commands() {
   fi
 }
 
-_install_gvm() {
-  if is_linux ; then
-    sudo apt-get install -y mercurial bison
-  elif is_darwin ; then
-    brew install mercurial
-    brew install bison
-  fi
-
-  bash < <(curl -s https://raw.github.com/moovweb/gvm/master/binscripts/gvm-installer) 2>/dev/null
-  ! grep -q 'gvm' "$HOME/.bash_profile" && \
-    echo '[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"' \
-    >> ~/.bash_profile
-  source ~/.bash_profile
-  gvm update
-  gvm install go1.1.1 2>/dev/null
-  ! grep -q 'gvm use go1.1.1' "$HOME/.bash_profile" && \
-    echo 'gvm use go1.1.1 >/dev/null' >> ~/.bash_profile
-  gvm use go1.1.1
-}
-
-_install_golint() {
-  go get github.com/golang/lint/golint
-  vim_str="\"set rtp+=\$GOPATH/src/github.com/golang/lint/misc/vim"
-  vim_str2="\"autocmd BufWritePost,FileWritePost *.go execute 'Lint' | cwindow"
-  ! grep "$vim_str" ~/.vimrc.after.local && echo "$vim_str" >> ~/.vimrc.after.local
-  ! grep "$vim_str2" ~/.vimrc.after.local && echo "$vim_str" >> ~/.vimrc.after.local
-}
-
 _install_docker_vim_syntax() {
-  for dir in ftdetect snippets syntax ; do 
+  for dir in ftdetect snippets syntax ; do
     mkdir -p "$HOME/.vim/$dir"
   done
 
@@ -197,8 +170,6 @@ main() {
   _install_tmux
   _install_XVim
   _install_sdc_commands
-  _install_gvm
-  _install_golint
   source "$HOME/.bash_profile"
   delete_self_and_exit
 }

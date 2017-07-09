@@ -1,5 +1,6 @@
 [core]
 	excludesfile = ~/.gitignore_global
+	deltaBaseCacheLimit = 1G
 [autosetup]
   rebase = true
 [branch]
@@ -18,6 +19,7 @@
   default = current
 [alias]
   addremove = !git add -A && git ls-files --deleted -z | xargs -0 git rm
+  ar = !git addremove
   br = branch
   bra = branch -a
   ci = commit
@@ -43,7 +45,11 @@
     && (git pull --ff-only || (git fetch origin && git rebase --preserve-merges origin/$CURRENT))'
   publish = "!f() { if [ $# -ne 1 ]; then echo 'usage: git publish <local-branch-name>' >&2; exit 1; fi; git push --set-upstream origin $1:$1; }; f"
   unpublish = "!f() { if [ $# -ne 1 ]; then echo 'usage: git unpublish <remote-branch-name>' >&2; exit 1; fi; git push origin :$1; }; f"
-  tidy = "!git remote prune origin 2>/dev/null; echo \"$(git branch -vv | grep origin | tr '[]*?+' ' ')\" | egrep -v \"$(git branch -r | awk '{print $1}')\" | awk '{print $1}' | xargs git branch -d"
-[user]
-	email = r.colton@modcloth.com
-	name = Rafe Colton
+  tidy = "!git remote prune origin 2>/dev/null; echo \"$(git branch -vv | grep origin | tr '[]*?+' ' ')\" | egrep -v \"$(git branch -r | awk '{print $1}')\" | awk '{print $1}' | xargs git branch -d 2>/dev/null"
+  refresh = "!git checkout master && git fetch && git pull --rebase && git tidy"
+  t = "!git tidy"
+  r = "!git refresh"
+[merge]
+	tool = vimdiff
+[url "git@gitlab.com:"]
+	insteadOf = https://gitlab.com/

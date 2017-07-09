@@ -23,7 +23,7 @@ function is_sunos() {
   uname | grep -i 'sunos' > /dev/null && [ $? -eq 0 ]
 }
 
-
+# fixes some bug for tmux, I think
 if is_darwin ; then
   if [ -f /etc/profile ] ; then
     PATH=''
@@ -43,23 +43,20 @@ function append_to_path {
   fi
 }
 
-for path in "/usr/local/sbin" "/opt/local/bin" "/usr/local/mysql/bin" ; do
-  append_to_path "$path"
-done
+append_to_path "/usr/local/sbin"
+append_to_path "/opt/local/bin"
+append_to_path "/usr/local/mysql/bin"
 
 export EDITOR=vim
-export RAILS_ENV=development
 export TERM=xterm-256color
 export PAGER='less -FSRX'
 
-if [ -d /usr/local/Cellar/go ] ; then
-  export GOROOT="/usr/local/Cellar/go/`ls /usr/local/Cellar/go | tail -1`"
-fi
-
+# source other .bashrc* files
 for f in .bashrc.local .bashrc_local .bashrc_$(whoami) ; do
   test -s "$HOME/$f" && source "$HOME/$f"
 done
 
+# source files in ~/.bashrc.d/
 if [ -d "$HOME/.bashrc.d" ] ; then
   for f in $(find "$HOME/.bashrc.d" -type f -name '*.sh') ; do
     source "$f"

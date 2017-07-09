@@ -5,3 +5,9 @@
 --color
 --pager=less -FSRX
 --sort-files
+--ignore-dir=Godeps
+--ignore-dir=vendor
+--ignore-dir=.venv
+--ignore-dir=.tox
+--ignore-dir=public
+--ignore-dir=node_modules
