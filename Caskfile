@@ -1,8 +1,7 @@
 # https://github.com/rafecolton/beer-me
 # vim:ft=ruby
 
-# install brew-cask - required if not already installed
-tap caskroom/cask
+tap git-duet/tap
 
 ### BREWS
 
@@ -20,6 +19,7 @@ brew autoenv
 brew bash-completion
 brew tree
 brew the_silver_searcher # ag - like ack but faster
+brew git-duet
 brew macvim
 brew watch
 brew colordiff
