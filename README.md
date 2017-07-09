@@ -8,8 +8,8 @@ Contributions for new features will also be considered.
 
 ## Usage
 
-To use this repo, copy all of these files (except for this README.md)
-into your `$HOME` directory.
+To use this repo, copy all of these files (except for README.md and
+LICENSE) into your `$HOME` directory.
 
 **IMPORTANT:** Before copying anything, be sure to check if any of these
 files already exist, especially `.bashrc` and `.bash_profile`. If so,
@@ -104,8 +104,8 @@ steps to remove unnecessary files from your `$HOME` directory:
     # remove bootstrap files
     rm ~/bootstrap.sh ~/Caskfile
 
-    # remove README if present
-    rm ~/README.md
+    # remove README and LICENSE files if present
+    rm ~/README.md ~/LICENSE
     ```
 
 1. Star this repo on GitHub 😄
