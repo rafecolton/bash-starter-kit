@@ -15,6 +15,46 @@ files already exist, especially `.bashrc` and `.bash_profile`. If so,
 please consider a manual merge of these contents with your own so as not
 to override any important settings you may already have.
 
+### Configuring Git
+
+To finish setting up `git` after a fresh install, be sure to set a
+global author and name:
+
+```bash
+git config --global user.name "Firstname Lastname"
+git config --global user.email "youremail@example.com"
+```
+
+### Configuring Sublime Text as Your Default Editor
+
+This repo assumes you use `vim` as your default text editor. If you
+would prefer to use Sublime Text, consider the following additional
+setup.
+
+1. Install Sublime Text
+
+    ```bash
+    # install sublime text 3
+    brew cask install sublime-text
+    ```
+
+    ...or, if Sublime Text is already installed, symlink the `subl` utility into place
+
+    ```bash
+    which subl || ln -s "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" /usr/local/bin/subl
+    ```
+1. Set your default editor to sublime
+
+    ```bash
+    # or manually replace the line in .bash_profile where EDITOR is set
+    echo 'export EDITOR=subl' >> ~/.bash_profile
+    ```
+1.  Set your git commit editor to sublime text
+
+    ```bash
+    git config --global core.editor "subl -n -w"
+    ```
+
 ## Bootstrapping (Optional)
 
 ### With `bootstrap.sh`
