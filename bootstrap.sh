@@ -64,7 +64,7 @@ _install_XVim(){
 }
 
 _install_gems() {
-  for gem in bundler rake git-duet ; do
+  for gem in bundler rake ; do
     is_linux && sudo gem install "$gem"
     is_darwin && gem install "$gem"
   done
@@ -121,14 +121,14 @@ _install_sdc_commands() {
   if is_linux ; then
     sudo apt-get install -y npm
     source ~/.bash_profile
-    sudo npm install -g jsontool
-    sudo npm update -g jsontool
+    sudo npm install -g json
+    sudo npm update -g json
     sudo npm install -g smartdc
     sudo npm update -g smartdc
   elif is_darwin ; then
     brew install npm
-    npm install -g jsontool
-    npm update -g jsontool
+    npm install -g json
+    npm update -g json
     npm install -g smartdc
     npm update -g smartdc
   fi

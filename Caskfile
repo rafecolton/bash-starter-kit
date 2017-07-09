@@ -1,0 +1,60 @@
+# https://github.com/rafecolton/beer-me
+# vim:ft=ruby
+
+# install brew-cask - required if not already installed
+tap caskroom/cask
+
+### BREWS
+
+brew tmux # terminal multiplexer
+brew reattach-to-user-namespace # required for tmux on mac
+
+brew mercurial # vcs required for many Golang packages
+
+# gnu-versions of some useful tools
+brew gnu-sed
+brew gnu-tar
+
+# useful tools
+brew autoenv
+brew bash-completion
+brew tree
+brew the_silver_searcher # ag - like ack but faster
+brew macvim
+brew watch
+brew colordiff
+brew fswatch
+brew p7zip
+
+# other useful tools
+brew postgres
+brew mysql
+brew redis
+brew wp-cli
+brew socat
+
+### CASKS
+
+# cask caffeine # use amphetamine from app store
+# cask rdm # Redis Desktop Manager - not that useful
+cask adium # for IRC & gchat/hangouts
+cask bettertouchtool # for mouse/trackpad modifications
+cask cyberduck
+cask disk-inventory-x
+cask filezilla
+cask google-chrome
+cask iterm2
+cask karabiner # keyboard remap
+cask macdown # alternative to mou, for markdown
+cask macvim
+cask macvim # gui version of macvim
+cask mamp
+cask pgadmin4 # visual postgre tool
+cask quicksilver
+cask sequel-pro # visual mysql tool
+cask sizeup
+cask skype
+cask spotify
+cask vagrant
+cask virtualbox
+cask vlc
