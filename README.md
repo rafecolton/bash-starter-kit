@@ -8,7 +8,8 @@ Contributions for new features will also be considered.
 
 ## Usage
 
-To use this repo, copy all of these files into your `$HOME` directory.
+To use this repo, copy all of these files (except for this README.md)
+into your `$HOME` directory.
 
 **IMPORTANT:** Before copying anything, be sure to check if any of these
 files already exist, especially `.bashrc` and `.bash_profile`. If so,
@@ -91,3 +92,20 @@ is not the case, consider adjusting the following files:
 
 * `.bash_profile.d/rbenv.sh`
 * `bootstrap.sh`
+
+## Cleanup
+
+After placing all files from this repo, be sure to take the following
+steps to remove unnecessary files from your `$HOME` directory:
+
+1. Remove bootstrap files
+
+    ```bash
+    # remove bootstrap files
+    rm ~/bootstrap.sh ~/Caskfile
+
+    # remove README if present
+    rm ~/README.md
+    ```
+
+1. Star this repo on GitHub 😄
