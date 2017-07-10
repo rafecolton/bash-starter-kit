@@ -39,14 +39,12 @@ brew socat
 # cask rdm # Redis Desktop Manager - not that useful
 cask adium # for IRC & gchat/hangouts
 cask bettertouchtool # for mouse/trackpad modifications
-cask cyberduck
 cask disk-inventory-x
 cask filezilla
 cask google-chrome
 cask iterm2
 cask karabiner # keyboard remap
 cask macdown # alternative to mou, for markdown
-cask macvim
 cask macvim # gui version of macvim
 cask mamp
 cask pgadmin4 # visual postgre tool
