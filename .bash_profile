@@ -104,7 +104,7 @@ fi
 append_to_path '/usr/local/share/npm/bin'
 
 _pretty_prompt() {
-  echo "${GREEN}(\$(uname))${LIGHT_BLUE} ::${YELLOW}[\w]${LIGHT_BLUE}::${RESET}\n${RED}::${LIGHT_BLUE}\u${RESET}Ə${PINK}\H${RESET}${LIGHT_GREY}::${LIGHT_BLUE}\$(org)${RESET}${LIGHT_GREY}::${GREEN}\$(sdc_env 2>/dev/null)${LIGHT_GREY}\$(__git_ps1)\n${RESET}> "
+  echo "${GREEN}(\$(uname))${LIGHT_BLUE} ::${YELLOW}[\w]${LIGHT_BLUE}::${RESET}\n${RED}::${LIGHT_BLUE}\u${RESET}Ə${PINK}\H${RESET}${LIGHT_GREY}::${BRIGHT_WHITE}\$(__git_ps1)\n${RESET}> "
 }
 
 export PS1="$(_pretty_prompt)"
