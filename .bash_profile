@@ -90,7 +90,7 @@ fi
 # source bash completion files
 for completion_file in $(find $HOME/.bash_completion.d/ -type f)
 do
-  if [ ! -x "$completion_file" ]; then
+  if [ -s "$completion_file" ]; then
     source "$completion_file"
   fi
 done
