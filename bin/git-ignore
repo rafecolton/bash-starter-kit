@@ -1,0 +1,12 @@
+#!/bin/bash
+
+readonly EXCLUDE_FILE=".git/info/exclude"
+
+if [[ ! -s "$EXCLUDE_FILE" ]] ; then
+  echo "fatal: Not a git repository (missing $EXCLUDE_FILE file)" >&2
+  exit 1
+fi
+
+for item in "$@" ; do
+  echo "$item" >> "$EXCLUDE_FILE"
+done

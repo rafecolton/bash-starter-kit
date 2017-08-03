@@ -1,0 +1,9 @@
+#!/bin/bash
+
+function randpass() {
+[ "$2" != "0" ] && CHAR="[:alnum:]" || CHAR="[:graph:]"
+  cat /dev/urandom | LC_ALL=C tr -cd "$CHAR" | head -c ${1:-32}
+  echo
+}
+
+randpass "$@"
