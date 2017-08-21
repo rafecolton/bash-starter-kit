@@ -44,6 +44,7 @@ cask filezilla
 cask google-chrome
 cask iterm2
 cask karabiner # keyboard remap
+cask karabiner-elements # keyboard remap, required for macOS 10.12+
 cask macdown # alternative to mou, for markdown
 cask macvim # gui version of macvim
 cask mamp
