@@ -1,0 +1,21 @@
+#!/bin/bash
+# https://blog.filippo.io/cleaning-up-my-gopath-with-homebrew/
+
+set -euo pipefail
+
+if [[ $# -lt 1 ]] || "$1" =~ -h|--help ; then
+  echo "Usage: brew-go-get github.com/foo/bar ..."
+  exit 1
+fi
+
+NAME=$(basename "$1")
+VERSION=$(date '+%Y-%m-%d')
+
+export GOPATH="$(brew --prefix)/Cellar/go-get-$NAME/$VERSION"
+
+go get "$@"
+
+rm -rf "$GOPATH/pkg" "$GOPATH/src"
+
+brew unlink "go-get-$NAME" 2> /dev/null || true
+brew link "go-get-$NAME"
