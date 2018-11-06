@@ -161,6 +161,11 @@ janus_only() {
   delete_self_and_exit
 }
 
+_install_vim_plugins() {
+  test -d ~/.vim/bundle/Vundle.vim || git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+  vim +PluginInstall +qall
+}
+
 main() {
   is_linux && sudo apt-get update -yq
   _install_autoenv
@@ -170,6 +175,7 @@ main() {
   _install_tmux
   _install_XVim
   _install_sdc_commands
+  _install_vim_plugins
   source "$HOME/.bash_profile"
   delete_self_and_exit
 }
